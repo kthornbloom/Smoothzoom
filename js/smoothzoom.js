@@ -13,10 +13,10 @@
 
             // Set Defaults
             var defaults = {
-                zoominSpeed: 500,
-                zoomoutSpeed: 500,
+                zoominSpeed: 1000,
+                zoomoutSpeed: 1000,
                 zoominEasing: 'easeOutExpo',
-                zoomoutEasing: 'easeOutBack',
+                zoomoutEasing: 'easeOutExpo',
                 useThumbnails: 'false'
             }
 
@@ -45,19 +45,18 @@
                 } else {
                     $('body').append("<div id='lightwrap'><img src=" + link + "></div><div id='lightbg'></div><img id='off-screen' src=" + link + ">");
                 }
-                    $("#off-screen").load(function() {
-                        var naturalWidth = this.width;   
-                        var naturalHeight = this.height;
+                $("#off-screen").load(function() {   
+                    $('#lightwrap img').css({
+                        width: width,
+                        height: height,
+                        top: (offset.top - amountScrolled),
+                        left: offset.left
                     });
-                $('#lightwrap img').css({
-                    width: width,
-                    height: height,
-                    top: (offset.top - amountScrolled),
-                    left: offset.left
+                    imageSizer();
+                    $('#lightbg').fadeIn();
                 });
-                imageSizer();
-                $('#lightbg').fadeIn();
-                event.preventDefault();
+                
+                    event.preventDefault(); 
             });
 
             // Close Modal Overlay
@@ -214,14 +213,12 @@
                     testHeight = (viewportHeight*.95),
                     testWidth = naturalWidth * (testHeight / naturalHeight);
 
-                $('h1').html(naturalHeight);
-                    
+                
                 if (naturalHeight > naturalWidth) {
                     fitHeight();
                 } else if (naturalHeight == naturalWidth) {
                     fitSquare();
                 } else {
-                    $('h1').html('fitwidth');
                     fitWidth();
                 }
             }
