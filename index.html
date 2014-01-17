@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=0;">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta charset='utf-8'> 
+<head>
+<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!-- META ===================================================== --> 
+    <title>Smoothslides Demo</title> 
+    <meta name="description" content="A lightweight and dead simple lightbox script"> 
+
+<!-- Favicon  ========================================== --> 
+	<link rel="icon" href="favicon.ico">
+
+<!-- CSS ====================================================== --> 
+	<link rel="stylesheet" href="css/smoothzoom.css">
+	<!-- Demo CSS (don't use) -->
+	<style type="text/css">
+		body, html {
+			padding:0px;
+			margin:0px;
+			background: #fff;
+		}
+		.page{
+			padding: 5px 30px 30px 30px;
+			max-width: 800px;
+			margin: 0 auto;
+			font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+		}
+		a:link,
+		a:visited {
+			color:#5BC9B7;
+		}
+		a:hover {
+			color:#449a8c;
+		}
+		pre {
+			background: #333;
+			padding: 10px;
+			overflow: auto;
+			color: #BBB7A9;
+			}
+		#hub {
+			text-decoration: none;
+			color: #5BC9B7;
+			border: 2px solid #5BC9B7;
+			padding: 6px 10px;
+			display: inline-block;
+			border-radius: 5px;
+			font-size: 18px;
+		}
+		#hub:hover {
+			background:#5BC9B7;
+			color:#fff;
+		}
+		.demo {
+			text-align: center;
+			padding:30px 0
+		}
+		.float-left {
+		    display:block;
+		    float:left;
+		    max-width:200px;
+		    margin:10px;
+		}
+		.float-left img {
+		    max-width:100%;
+		    height:auto;
+		    cursor:-webkit-zoom-in;
+		    cursor:-moz-zoom-in;
+		}
+		.float-right {
+		    display:block;
+		    float:right;
+		    max-width:200px;
+		    margin:10px;
+		}
+		.float-right img {
+		    max-width:100%;
+		    height:auto;
+		    cursor:-webkit-zoom-in;
+		    cursor:-moz-zoom-in;
+		}
+		.debug {
+			position: fixed;
+			top:0;
+			left:0;
+			background:#000;
+			color:#fff;
+			z-index: 9999;
+		}
+	</style>
+
+</head>
+<body>
+<br>
+<div class="page">
+<div class="debug"></div>
+<b>Inline Image Zoom</b><br>
+<a href="#" class="float-left">
+	<img src="images/1.jpg" rel="zoom">
+</a><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lorem turpis, pharetra ut orci non, lobortis euismod nunc. Fusce tempor elit tristique orci porta, sed sodales massa suscipit. Praesent venenatis massa ut dolor dignissim tempor. Vestibulum malesuada hendrerit dictum. Curabitur sed laoreet lorem, sed vulputate metus. Curabitur sollicitudin leo at sem feugiat vulputate. Duis vitae fringilla nulla.</p>
+
+<a href="#" class="float-right">
+	<img src="images/2.jpg" rel="zoom">
+</a><p>Integer id nisl et ante varius imperdiet. Cras at urna eget felis convallis cursus quis a lacus. Duis ornare velit in eros feugiat, quis aliquam massa euismod. Cras congue nibh at lectus tempor adipiscing. Etiam non est id neque aliquam sodales. Nulla gravida sapien et aliquam vehicula. In porta ultrices felis tincidunt euismod. Sed eu est ac sem tempus luctus sit amet sit amet elit. Nulla libero tellus, varius ac urna vel, volutpat vestibulum enim. Fusce a lacinia ligula. Cras convallis pharetra massa non luctus. Nulla elementum, purus vel ullamcorper tincidunt, urna mi posuere nisi, ut eleifend lacus diam sed neque. Sed pharetra mauris vitae dignissim eleifend. Nulla semper diam vel volutpat interdum. Nam vulputate arcu at pretium convallis. Cras dictum magna vel justo posuere, eget mollis quam consectetur.</p>
+
+<p>Curabitur fermentum congue urna, et venenatis nisl feugiat accumsan. Nullam ut odio ipsum. Maecenas neque libero, egestas id ante vel, cursus pharetra felis. Maecenas non diam vel metus tempor facilisis vitae sed magna. Nullam sed posuere ipsum. Nullam quis dictum sem. Nullam at ipsum eros. Mauris pulvinar pellentesque lacinia. Nulla pretium libero leo, vitae gravida leo pulvinar semper. Aenean consequat porta iaculis. Vivamus auctor, sem vitae mollis feugiat, ligula tellus rhoncus est, non adipiscing velit magna ac sapien. Etiam a vestibulum mauris. Duis et sollicitudin orci. Donec congue, sapien semper pharetra pulvinar, enim lorem dignissim arcu, eget cursus ligula nisl vitae purus.</p>
+
+<a href="#" class="float-left">
+	<img src="images/3.jpg" rel="zoom">
+</a><p>Etiam accumsan lacus leo, quis sollicitudin arcu tincidunt a. Proin posuere purus eros, ullamcorper mollis ipsum tincidunt vitae. Integer a mollis eros. Suspendisse eleifend, velit sit amet imperdiet vehicula, dolor est cursus nisl, non ultricies nisi libero nec lectus. Phasellus in convallis enim. Aliquam ultrices orci mi, id varius nibh fringilla in. Morbi in lectus turpis. Mauris ut magna sit amet sem vehicula pulvinar. Cras commodo aliquet aliquet. Donec id augue molestie, faucibus odio eu, feugiat arcu. Nulla quis lorem purus. Mauris non elit quis dui molestie faucibus. Aliquam scelerisque risus sit amet quam cursus condimentum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam volutpat commodo quam, nec aliquet eros sodales ut.</p>
+
+
+
+
+
+</div><br>
+<!-- JS ======================================================= --> 
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
+	<script type="text/javascript" src="js/easing.js"></script>
+	<script type="text/javascript" src="js/smoothzoom.js"></script>
+    <script type="text/javascript">
+        $(window).load( function() {
+            $('img').smoothZoom({
+            	useThumbnails: 'true'
+            });
+        });
+    </script>
+</body>
+</html>
