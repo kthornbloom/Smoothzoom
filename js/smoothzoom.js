@@ -1,6 +1,6 @@
 /*
  * Smoothzoom
- * http://kthornbloom.com
+ * http://kthornbloom.com/smoothzoom
  *
  * Copyright 2014, Kevin Thornbloom
  * Free to use and modify under the MIT license.
@@ -47,7 +47,7 @@
                             top: (offset.top - amountScrolled),
                             left: offset.left
                         });
-                        imageSizer();
+                        fitWidth();
                         $('#lightbg').fadeIn();
                     });
                     $(this).attr('id', 'lightzoomed');
@@ -62,7 +62,7 @@
                             top: (offset.top - amountScrolled),
                             left: offset.left
                         });
-                        imageSizer();
+                        fitWidth();
                         $('#lightbg').fadeIn();
                     });
                     $(this).attr('id', 'lightzoomed');
@@ -113,7 +113,7 @@
             // CHECK WINDOW SIZE EVERY _ MS
             $(window).resize(function() {
                 delay(function() {
-                    imageSizer();
+                    fitWidth();
                 }, options.resizeDelay);
             });
 
@@ -194,24 +194,6 @@
                 }
             }
 
-            // DETERMINE METHOD OF SIZING
-            function imageSizer() {
-                var naturalWidth = $('#off-screen').width(),
-                    naturalHeight = $('#off-screen').height(),
-                    viewportWidth = $(window).width(),
-                    viewportHeight = $(window).height(),
-                    testHeight = (viewportHeight * .95),
-                    testWidth = naturalWidth * (testHeight / naturalHeight);
-
-
-                if (naturalHeight > naturalWidth) {
-                    fitHeight();
-                } else if (naturalHeight == naturalWidth) {
-                    fitWidth();
-                } else {
-                    fitWidth();
-                }
-            }
 
         }
     });
