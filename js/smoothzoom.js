@@ -7,61 +7,81 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-(function ($) {
+(function($) {
     $.fn.extend({
-        smoothZoom: function (options) {
+        smoothZoom: function(options) {
 
-            // Set Defaults
             var defaults = {
-                zoominSpeed: 1000,
-                zoomoutSpeed: 1000,
+                zoominSpeed: 800,
+                zoomoutSpeed: 400,
+                resizeDelay: 400,
                 zoominEasing: 'easeOutExpo',
-                zoomoutEasing: 'easeOutExpo',
-                useThumbnails: 'false'
+                zoomoutEasing: 'easeOutExpo'
             }
 
             var options = $.extend(defaults, options);
 
 
 
-            // Click Image
+            // CLICKING AN IMAGE
 
-            $('img[rel="zoom"]').click(function (event) {
-                $(this).attr('id', 'lightzoomed');
+            $('img[rel="zoom"]').click(function(event) {
+
                 var link = $(this).attr('src'),
-                    largeImg = $(this).parent().attr('href');
+                    largeImg = $(this).parent().attr('href'),
+                    target = $(this).parent().attr('target'),
                     offset = $(this).offset(),
                     width = $(this).width(),
                     height = $(this).height(),
                     amountScrolled = $(window).scrollTop(),
                     viewportWidth = $(window).width(),
                     viewportHeight = $(window).height();
-                if (useThumbnails = 'true') {
-                    if ((! largeImg)||(largeImg == "#")) {
-                        $('body').append("<div id='lightwrap'><img src=" + link + "></div><div id='lightbg'></div><img id='off-screen' src=" + link + ">");
-                    } else {
-                        $('body').append("<div id='lightwrap'><img src=" + largeImg + "></div><div id='lightbg'></div><img id='off-screen' src=" + largeImg + ">");
-                    }
-                } else {
+                // IF THERE IS NO ANCHOR WRAP
+                if ((!largeImg) || (largeImg == "#")) {
+
                     $('body').append("<div id='lightwrap'><img src=" + link + "></div><div id='lightbg'></div><img id='off-screen' src=" + link + ">");
-                }
-                $("#off-screen").load(function() {   
-                    $('#lightwrap img').css({
-                        width: width,
-                        height: height,
-                        top: (offset.top - amountScrolled),
-                        left: offset.left
+                    $("#off-screen").load(function() {
+                        $('#lightwrap img').css({
+                            width: width,
+                            height: height,
+                            top: (offset.top - amountScrolled),
+                            left: offset.left
+                        });
+                        imageSizer();
+                        $('#lightbg').fadeIn();
                     });
-                    imageSizer();
-                    $('#lightbg').fadeIn();
-                });
-                
-                    event.preventDefault(); 
+                    $(this).attr('id', 'lightzoomed');
+
+                    // IF THERE IS AN ANCHOR, AND IT'S AN IMAGE
+                } else if (largeImg.match("jpg$")) {
+                    $('body').append("<div id='lightwrap'><img src=" + largeImg + "></div><div id='lightbg'></div><img id='off-screen' src=" + largeImg + ">");
+                    $("#off-screen").load(function() {
+                        $('#lightwrap img').css({
+                            width: width,
+                            height: height,
+                            top: (offset.top - amountScrolled),
+                            left: offset.left
+                        });
+                        imageSizer();
+                        $('#lightbg').fadeIn();
+                    });
+                    $(this).attr('id', 'lightzoomed');
+
+                    // IF THERE IS AN ANCHOR, BUT NOT AN IMAGE
+                } else {
+                    // SHOULD IT OPEN IN A NEW WINDOW?
+                    if (target = '_blank') {
+                        window.open(largeImg, '_blank');
+                    } else {
+                        window.location = largeImg;
+                    }
+                }
+                event.preventDefault();
             });
 
-            // Close Modal Overlay
+            // CLOSE MODAL
 
-            $(document.body).on("click", "#lightwrap, #lightbg", function (event) {
+            $(document.body).on("click", "#lightwrap, #lightbg", function(event) {
                 var offset = $("#lightzoomed").offset(),
                     originalWidth = $("#lightzoomed").width(),
                     originalHeight = $("#lightzoomed").height(),
@@ -74,33 +94,33 @@
                     left: offset.left,
                     marginTop: '0',
                     marginLeft: '0'
-                }, options.zoomoutSpeed, options.zoomoutEasing, function () {
-                        $('#lightwrap, #lightbg, #off-screen').remove();
-                        $('#lightzoomed').removeAttr('id');
-                    
+                }, options.zoomoutSpeed, options.zoomoutEasing, function() {
+                    $('#lightwrap, #lightbg, #off-screen').remove();
+                    $('#lightzoomed').removeAttr('id');
+
                 });
             });
 
-            // Delay Function so window resize only checks every 500ms
-            var delay = (function () {
+            // DELAY FUNCTION FOR WINDOW RESIZE
+            var delay = (function() {
                 var timer = 0;
-                return function (callback, ms) {
+                return function(callback, ms) {
                     clearTimeout(timer);
                     timer = setTimeout(callback, ms);
                 };
             })();
 
-            // On Window Resize, fix image size
-            $(window).resize(function () {
-                delay(function () {
+            // CHECK WINDOW SIZE EVERY _ MS
+            $(window).resize(function() {
+                delay(function() {
                     imageSizer();
-                }, 500);
+                }, options.resizeDelay);
             });
 
 
-            // Function to fit image based on height
+            // FIT IMAGE BASED ON HEIGHT
             function fitHeight() {
-                
+
                 var viewportHeight = $(window).height(),
                     viewportWidth = $(window).width(),
                     naturalWidth = $('#off-screen').width(),
@@ -108,6 +128,7 @@
                     newHeight = (viewportHeight * 0.95),
                     ratio = (newHeight / naturalHeight),
                     newWidth = (naturalWidth * ratio);
+                $('#lightwrap img').show();
                 if (newHeight > naturalHeight) {
                     $('#lightwrap img').animate({
                         height: naturalHeight,
@@ -115,7 +136,7 @@
                         left: '50%',
                         top: '50%',
                         marginTop: -(naturalHeight / 2),
-                        marginLeft:-(naturalWidth / 2)
+                        marginLeft: -(naturalWidth / 2)
                     }, options.zoominSpeed, options.zoominEasing);
                 } else {
                     if (newWidth > viewportWidth) {
@@ -133,9 +154,9 @@
                 }
             }
 
-            // Function to fit image based on width
-            function fitWidth() {    
-                
+            // FIT IMAGE BASED ON WIDTH
+            function fitWidth() {
+
                 var naturalWidth = $('#off-screen').width(),
                     naturalHeight = $('#off-screen').height(),
                     viewportWidth = $(window).width(),
@@ -143,18 +164,22 @@
                     newWidth = (viewportWidth * 0.95),
                     ratio = (newWidth / naturalWidth),
                     newHeight = (naturalHeight * ratio);
-
+                $('#lightwrap img').show();
                 if (newHeight > naturalHeight) {
-                    $('#lightwrap img').animate({
-                        height: naturalHeight,
-                        width: naturalWidth,
-                        top: '50%',
-                        left: '50%',
-                        marginTop: -(naturalHeight / 2),
-                        marginLeft:-(naturalWidth / 2)
-                    }, options.zoominSpeed, options.zoominEasing);
+                    if (naturalHeight > viewportHeight) {
+                        fitHeight();
+                    } else {
+                        $('#lightwrap img').animate({
+                            height: naturalHeight,
+                            width: naturalWidth,
+                            top: '50%',
+                            left: '50%',
+                            marginTop: -(naturalHeight / 2),
+                            marginLeft: -(naturalWidth / 2)
+                        }, options.zoominSpeed, options.zoominEasing);
+                    }
                 } else {
-                    if(newHeight > viewportHeight) {
+                    if (newHeight > viewportHeight) {
                         fitHeight();
                     } else {
                         $('#lightwrap img').animate({
@@ -163,61 +188,26 @@
                             top: '50%',
                             left: '2.5%',
                             marginTop: -(newHeight / 2),
-                            marginLeft:'0'
+                            marginLeft: '0'
                         }, options.zoominSpeed, options.zoominEasing);
                     }
                 }
             }
 
-            // Function to fit square images
-            function fitSquare() {    
-                
-                var naturalWidth = $('#off-screen').width(),
-                    naturalHeight = $('#off-screen').height(),
-                    viewportWidth = $(window).width(),
-                    viewportHeight = $(window).height(),
-                    newWidth = (viewportWidth * 0.95),
-                    ratio = (newWidth / naturalWidth),
-                    newHeight = (naturalHeight * ratio);
-                    if (newHeight > naturalHeight) {
-                        $('#lightwrap img').animate({
-                            height: naturalHeight,
-                            width: naturalWidth,
-                            top: '50%',
-                            left: '50%',
-                            marginTop: -(naturalHeight / 2),
-                            marginLeft:-(naturalWidth / 2),
-                        }, options.zoominSpeed, options.zoominEasing);
-                    } else {
-                        if(naturalHeight > viewportHeight) {
-                            fitHeight();
-                        } else {
-                            $('#lightwrap img').animate({
-                                height: newHeight,
-                                width: newWidth,
-                                top: '50%',
-                                left: '2.5%',
-                                marginTop: -(newHeight / 2),
-                                marginLeft:'0'
-                            }, options.zoominSpeed, options.zoominEasing);
-                        }
-                    }
-            }
-
-            // Determines if the image should be sized by height, width, or as a square
+            // DETERMINE METHOD OF SIZING
             function imageSizer() {
                 var naturalWidth = $('#off-screen').width(),
                     naturalHeight = $('#off-screen').height(),
                     viewportWidth = $(window).width(),
                     viewportHeight = $(window).height(),
-                    testHeight = (viewportHeight*.95),
+                    testHeight = (viewportHeight * .95),
                     testWidth = naturalWidth * (testHeight / naturalHeight);
 
-                
+
                 if (naturalHeight > naturalWidth) {
                     fitHeight();
                 } else if (naturalHeight == naturalWidth) {
-                    fitSquare();
+                    fitWidth();
                 } else {
                     fitWidth();
                 }

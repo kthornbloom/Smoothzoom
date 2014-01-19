@@ -1,3 +1,4 @@
+/* Wrapper for image centering */
 #lightwrap {
     position:fixed;
     top:0;
@@ -9,6 +10,7 @@
     cursor:-moz-zoom-out;
     z-index:999;
 }
+/* overlay covering website */
 #lightbg {
     position:fixed;
     display:none;
@@ -18,13 +20,6 @@
     height:100%;
     background:rgba(255, 255, 255, .9);
 }
-#lightwrap img {
-    position:absolute;
-}
-#lightzoomed {
-    opacity:0;
-}
-#off-screen {
-    position: fixed;
-    right:100%;
-}
+#lightwrap img {position:absolute;display:none;}
+#lightzoomed {opacity:0;}
+#off-screen {position: fixed;right:100%;opacity: 0;}

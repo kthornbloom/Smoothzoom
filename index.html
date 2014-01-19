@@ -29,13 +29,14 @@
 			max-width: 800px;
 			margin: 0 auto;
 			font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+			line-height: 1.5em;
 		}
 		a:link,
 		a:visited {
-			color:#5BC9B7;
+			color: #F0353A;
 		}
 		a:hover {
-			color:#449a8c;
+			color: #8C0B0E;
 		}
 		pre {
 			background: #333;
@@ -43,46 +44,39 @@
 			overflow: auto;
 			color: #BBB7A9;
 			}
-		#hub {
+		.button {
 			text-decoration: none;
-			color: #5BC9B7;
-			border: 2px solid #5BC9B7;
+			color: #F0353A;
+			border: 2px solid #F0353A;
 			padding: 6px 10px;
 			display: inline-block;
-			border-radius: 5px;
 			font-size: 18px;
 		}
-		#hub:hover {
-			background:#5BC9B7;
+		.button:hover {
+			background:#F0353A;
 			color:#fff;
 		}
-		.demo {
-			text-align: center;
-			padding:30px 0
+		hr {
+			clear:both;
+			border:0;
+			border-bottom:1px solid #ccc;
+			margin:25px 0;
 		}
 		.float-left {
 		    display:block;
 		    float:left;
-		    max-width:300px;
-		    margin:10px;
+		    max-width:250px;
+		    margin:0 10px 10px 0px;
 		    cursor:-webkit-zoom-in;
 		    cursor:-moz-zoom-in;
 		}
 		.float-right {
 		    display:block;
 		    float:right;
-		    max-width:300px;
-		    margin:10px;
+		    max-width:250px;
+		    margin:0 0px 10px 10px;
 		    cursor:-webkit-zoom-in;
 		    cursor:-moz-zoom-in;
-		}
-		.debug {
-			position: fixed;
-			top:0;
-			left:0;
-			background:#000;
-			color:#fff;
-			z-index: 9999;
 		}
 		@media screen and (max-width: 400px) {
 			.float-left, .float-right {
@@ -98,31 +92,32 @@
 <br>
 <div class="page">
 <div class="debug"></div>
-<b>Inline Image Zoom</b><br>
-<img src="images/1.jpg" rel="zoom" class="float-left">
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lorem turpis, pharetra ut orci non, lobortis euismod nunc. Fusce tempor elit tristique orci porta, sed sodales massa suscipit. Praesent venenatis massa ut dolor dignissim tempor. Vestibulum malesuada hendrerit dictum. Curabitur sed laoreet lorem, sed vulputate metus. Curabitur sollicitudin leo at sem feugiat vulputate. Duis vitae fringilla nulla.</p>
+<h1>Smoothzoom</h1>
+A jQuery plugin to smoothly zoom inline images. <br><br>
+<a href="https://github.com/kthornbloom/Smoothzoom" class="button">Docs & Download</a>
+<hr>
+<!-- Typical usage. The float-left class is unrelated to the plugin -->
+<p><img src="images/1.jpg" rel="zoom" class="float-left"><b>You might view the source to see comments releated to each example image in this demo.</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed volutpat tellus, ac malesuada justo. Nulla tincidunt, neque et gravida malesuada, orci libero luctus nunc, auctor laoreet leo odio eget ligula. Morbi quis orci tristique, consequat massa faucibus, porttitor dolor. Donec mattis nisl ipsum. Mauris augue turpis, sagittis a erat sit amet, ultricies mollis purus. Nunc eu sagittis mi.</p>
 
-<img src="images/2.jpg" rel="zoom" class="float-right">
-<p>Integer id nisl et ante varius imperdiet. Cras at urna eget felis convallis cursus quis a lacus. Duis ornare velit in eros feugiat, quis aliquam massa euismod. Cras congue nibh at lectus tempor adipiscing. Etiam non est id neque aliquam sodales. Nulla gravida sapien et aliquam vehicula. In porta ultrices felis tincidunt euismod. Sed eu est ac sem tempus luctus sit amet sit amet elit. Nulla libero tellus, varius ac urna vel, volutpat vestibulum enim. Fusce a lacinia ligula. Cras convallis pharetra massa non luctus. Nulla elementum, purus vel ullamcorper tincidunt, urna mi posuere nisi, ut eleifend lacus diam sed neque. Sed pharetra mauris vitae dignissim eleifend. Nulla semper diam vel volutpat interdum. Nam vulputate arcu at pretium convallis. Cras dictum magna vel justo posuere, eget mollis quam consectetur.</p>
+<!-- Example of vertical image -->
+<p><img src="images/2.jpg" rel="zoom" class="float-right"> Nam iaculis eu ante vitae posuere. Vivamus imperdiet eros bibendum, ullamcorper magna eu, posuere urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus consectetur gravida dui, vestibulum tempor diam egestas nec. Etiam nunc quam, fermentum vitae sollicitudin at, hendrerit id justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis tempus libero, vel dictum purus elementum ut. Fusce consectetur ipsum quis commodo interdum. Nullam quis nunc suscipit, fermentum odio vitae, fermentum dui. </p>
 
-<p>Curabitur fermentum congue urna, et venenatis nisl feugiat accumsan. Nullam ut odio ipsum. Maecenas neque libero, egestas id ante vel, cursus pharetra felis. Maecenas non diam vel metus tempor facilisis vitae sed magna. Nullam sed posuere ipsum. Nullam quis dictum sem. Nullam at ipsum eros. Mauris pulvinar pellentesque lacinia. Nulla pretium libero leo, vitae gravida leo pulvinar semper. Aenean consequat porta iaculis. Vivamus auctor, sem vitae mollis feugiat, ligula tellus rhoncus est, non adipiscing velit magna ac sapien. Etiam a vestibulum mauris. Duis et sollicitudin orci. Donec congue, sapien semper pharetra pulvinar, enim lorem dignissim arcu, eget cursus ligula nisl vitae purus.</p>
+<!-- Wrap in a normal anchor tag to use a thumbnail -->
+<p><a href="images/3.jpg"><img src="images/3-THUMB.jpg" rel="zoom" class="float-left"></a>Donec vitae euismod diam. Duis vestibulum vestibulum ante non blandit. In eu libero pellentesque, tincidunt leo et, aliquam arcu. Duis eleifend blandit justo, nec porta mi varius id. Curabitur fringilla malesuada commodo. Suspendisse pulvinar facilisis lorem vitae interdum. Pellentesque sed risus lectus. Aliquam massa elit, dignissim vel viverra a, scelerisque gravida arcu. Mauris et massa urna. Nam adipiscing pretium lorem eget luctus. Curabitur orci leo, rhoncus nec porta nec, aliquet sit amet augue. Proin adipiscing odio id diam pretium, in laoreet urna vestibulum. Suspendisse a posuere mi, eget dictum enim.</p>
 
-<img src="images/3.jpg" rel="zoom" class="float-left">
-<p>Etiam accumsan lacus leo, quis sollicitudin arcu tincidunt a. Proin posuere purus eros, ullamcorper mollis ipsum tincidunt vitae. Integer a mollis eros. Suspendisse eleifend, velit sit amet imperdiet vehicula, dolor est cursus nisl, non ultricies nisi libero nec lectus. Phasellus in convallis enim. Aliquam ultrices orci mi, id varius nibh fringilla in. Morbi in lectus turpis. Mauris ut magna sit amet sem vehicula pulvinar. Cras commodo aliquet aliquet. Donec id augue molestie, faucibus odio eu, feugiat arcu. Nulla quis lorem purus. Mauris non elit quis dui molestie faucibus. Aliquam scelerisque risus sit amet quam cursus condimentum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam volutpat commodo quam, nec aliquet eros sodales ut.</p>
-
-
-
+<!-- Non-image links in anchor wraps will get redirected normally -->
+<p><a href="http://google.com" target="_blank"><img src="images/4.jpg" class="float-right" rel="zoom"></a>Nam velit tortor, imperdiet sed placerat eget, interdum a velit. Aenean porta quis enim id eleifend. Nullam non turpis et nisi interdum pulvinar. Sed non leo ut metus posuere fringilla. Nullam mi mauris, fermentum nec iaculis vitae, aliquet sit amet erat. Nullam placerat ac orci eu interdum. Fusce sagittis blandit consequat. Praesent euismod nibh quis fermentum luctus. Morbi id luctus magna, aliquet ultrices eros. Vestibulum ullamcorper et massa in tincidunt. Proin purus sapien, fringilla eget aliquet ac, lobortis a nunc. Donec faucibus tellus arcu, vel rutrum tellus laoreet id. In non orci dui. Interdum et malesuada fames ac ante ipsum primis in faucibus. In nec adipiscing leo, eu venenatis sem.</p>
 
 
 </div><br>
 <!-- JS ======================================================= --> 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
 	<script type="text/javascript" src="js/easing.js"></script>
-	<script type="text/javascript" src="js/smoothzoom.js"></script>
+	<script type="text/javascript" src="js/smoothzoom.min.js"></script>
     <script type="text/javascript">
         $(window).load( function() {
             $('img').smoothZoom({
-            	useThumbnails: 'true'
+            	// Options go here
             });
         });
     </script>
