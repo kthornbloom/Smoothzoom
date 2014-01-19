@@ -12,25 +12,30 @@ A jQuery plugin to responsively zoom inline page images by <a href="http://kthor
 
 ##Usage
 - Include CSS in the header.
+
 ```
 <link rel="stylesheet" href="css/smoothzoom.css">
 ```
 - Include and call javascript in the footer.
+
 ```
-<script type="text/javascript" src="js/smoothzoom.min.js"></script>
-<script type="text/javascript">
-    $(window).load( function() {
-        $('img').smoothZoom({
+	<script type="text/javascript" src="js/smoothzoom.min.js"></script>
+	<script type="text/javascript">
+		 $(window).load( function() {
+		 $('img').smoothZoom({
         	// Options go here
-        });
-    });
-</script>
+        		});
+		 });
+	</script>
+
 ```
 - Add rel="zoom" to any image you want to zoom
+
 ```
 <img src="images/1.jpg" rel="zoom">
 ```
 - To use thumbnails, set the smaller image in the img tag. Then wrap it in an anchor that points to the larger.
+
 ```
 <a href="images/3.jpg"><img src="images/3-THUMB.jpg" rel="zoom"></a>
 ```
