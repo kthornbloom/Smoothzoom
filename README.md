@@ -1,5 +1,6 @@
 #Smoothzoom
 A jQuery plugin to responsively zoom inline page images by <a href="http://kthornbloom.com">Kevin Thornbloom</a>.
+<img src="http://kthornbloom.com/public/smoothzoom.gif">
 
 ##Demo
 <a href="http://kthornbloom.com/smoothzoom" target="_blank">Open demo in new window</a>
