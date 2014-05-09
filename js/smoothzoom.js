@@ -53,7 +53,7 @@
                     $(this).attr('id', 'lightzoomed');
 
                     // IF THERE IS AN ANCHOR, AND IT'S AN IMAGE
-                } else if (largeImg.match("jpg$")) {
+                } else if (largeImg.match("[jpg|png|gif]$")) {
                     $('body').append("<div id='lightwrap'><img src=" + largeImg + "></div><div id='lightbg'></div><img id='off-screen' src=" + largeImg + ">");
                     $("#off-screen").load(function() {
                         $('#lightwrap img').css({
