@@ -13,11 +13,11 @@ A jQuery plugin to responsively zoom inline page images by <a href="http://kthor
 
 ##Usage
 - Include CSS in the header.
-- Include the load.gif image in the images folder
 
 ```
 <link rel="stylesheet" href="css/smoothzoom.css">
 ```
+- Include the load.gif image in the images folder
 - Include and call javascript in the footer. jQuery and jQuery easing are used by this plugin.
 
 ```
