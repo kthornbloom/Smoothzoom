@@ -10,6 +10,7 @@
 }
 .sz-zoomed {
     display:block;
+    text-decoration: none;
     background-size:contain!important;
     background-position: center!important;
     background-repeat: no-repeat!important;
