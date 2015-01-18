@@ -1,25 +1,81 @@
-/* Wrapper for image centering */
-#lightwrap {
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    text-align:center;
-    cursor:-webkit-zoom-out;
-    cursor:-moz-zoom-out;
-    z-index:999;
-}
-/* overlay covering website */
-#lightbg {
+
+.sz-overlay {
     position:fixed;
     display:none;
     top:0;
     left:0;
     width:100%;
     height:100%;
-    background:rgba(255, 255, 255, .9);
+    background:url('../images/load.gif') center no-repeat #fff;
 }
-#lightwrap img {position:absolute;display:none;}
-#lightzoomed {opacity:0;}
-#off-screen {position: fixed;right:100%;opacity: 0;}
+.sz-zoomed {
+    display:block;
+    background-size:contain!important;
+    background-position: center!important;
+    background-repeat: no-repeat!important;
+    position:fixed;
+    cursor:zoom-out;
+}
+#lightzoomed {
+    opacity:0;
+}
+
+.sz-caption {
+    position:fixed;
+    bottom:0;
+    width:100%;
+    background:#fff;
+    text-align:center;
+    display:none;
+}
+.sz-caption span {
+    display: inline-block;
+    padding: 5px;
+    font-size: 12px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+}
+.sz-close {
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    padding: 10px;
+    color: #666;
+    text-decoration: none;
+    font-size: 20px;
+    background: #FFF;
+    border-radius: 25px;
+}
+.sz-left, .sz-right {
+    position: fixed;
+    top: 50%;
+    left:0;
+    margin-top: -25px;
+    text-decoration: none;
+    height: 40px;    
+    width: 5%;
+    background: #FFF;
+    color: #666;
+    text-align: center;
+    padding-top: 10px;
+    border-radius: 0 25px 25px 0;
+    display:none;
+}
+
+.sz-right {
+    right:0;
+    left:auto;
+    border-radius: 25px 0 0 25px;
+}
+
+ul {
+    display:inline-block;
+    text-align:left;
+    padding:0;
+    margin:0;
+}
+@media screen and (max-width: 414px){
+    .sz-left, .sz-right {
+        width:50px;
+    }
+}

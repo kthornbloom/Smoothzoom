@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=0;">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta charset='utf-8'> 
 <head>
@@ -18,111 +18,41 @@
 <!-- CSS ====================================================== --> 
 	<link rel="stylesheet" href="css/smoothzoom.css">
 	<!-- Demo CSS (don't use) -->
-	<style type="text/css">
-		body, html {
-			padding:0px;
-			margin:0px;
-			background: #fff;
-		}
-		.page{
-			padding: 5px 30px 30px 30px;
-			max-width: 800px;
-			margin: 0 auto;
-			font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
-			line-height: 1.5em;
-		}
-		a:link,
-		a:visited {
-			color: #F0353A;
-		}
-		a:hover {
-			color: #8C0B0E;
-		}
-		pre {
-			background: #333;
-			padding: 10px;
-			overflow: auto;
-			color: #BBB7A9;
-			}
-		.button {
-			text-decoration: none;
-			color: #F0353A;
-			border: 2px solid #F0353A;
-			padding: 6px 10px;
-			display: inline-block;
-			font-size: 18px;
-		}
-		.button:hover {
-			background:#F0353A;
-			color:#fff;
-		}
-		hr {
-			clear:both;
-			border:0;
-			border-bottom:1px solid #ccc;
-			margin:25px 0;
-		}
-		.float-left {
-		    display:block;
-		    float:left;
-		    max-width:250px;
-		    margin:0 10px 10px 0px;
-		    cursor:-webkit-zoom-in;
-		    cursor:-moz-zoom-in;
-		}
-		.float-right {
-		    display:block;
-		    float:right;
-		    max-width:250px;
-		    margin:0 0px 10px 10px;
-		    cursor:-webkit-zoom-in;
-		    cursor:-moz-zoom-in;
-		}
-		@media screen and (max-width: 400px) {
-			.float-left, .float-right {
-				max-width: 100%;
-				height: auto;
-				margin:10px 0;
-			}
-		}
-	</style>
-
+	<link rel="stylesheet" href="css/demo.css">
 </head>
 <body>
 <br>
-<div class="page">
-<div class="debug"></div>
 <h1>Smoothzoom</h1>
-A jQuery plugin to smoothly zoom inline images. <br><br>
-<a href="https://github.com/kthornbloom/Smoothzoom" class="button">Docs & Download</a>
-<hr>
-<!-- Typical usage. The float-left class is unrelated to the plugin -->
-<p><img src="images/1.jpg" rel="zoom" class="float-left"><b>You might view the source to see comments releated to each example image in this demo.</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed volutpat tellus, ac malesuada justo. Nulla tincidunt, neque et gravida malesuada, orci libero luctus nunc, auctor laoreet leo odio eget ligula. Morbi quis orci tristique, consequat massa faucibus, porttitor dolor. Donec mattis nisl ipsum. Mauris augue turpis, sagittis a erat sit amet, ultricies mollis purus. Nunc eu sagittis mi.</p>
 
-<!-- Example of vertical image -->
-<p><img src="images/2.jpg" rel="zoom" class="float-right"> Nam iaculis eu ante vitae posuere. Vivamus imperdiet eros bibendum, ullamcorper magna eu, posuere urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus consectetur gravida dui, vestibulum tempor diam egestas nec. Etiam nunc quam, fermentum vitae sollicitudin at, hendrerit id justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis tempus libero, vel dictum purus elementum ut. Fusce consectetur ipsum quis commodo interdum. Nullam quis nunc suscipit, fermentum odio vitae, fermentum dui. </p>
+<h2>EXAMPLE DEMO</h2>
+<div class="images">
+<a href="images/1.jpg"><img src="images/1-sm.jpg" data-smoothzoom="group1" alt="Photo Credit: Sebastian Boguszewicz"></a>
+<a href="images/2.jpg"><img src="images/2-sm.jpg" data-smoothzoom="group1" alt="Photo Credit: Ales Krivec"></a>
+<a href="images/3.jpg"><img src="images/3-sm.jpg" data-smoothzoom="group1" alt="Photo Credit: Dustin Scarpitti"></a>
+<a href="images/4.jpg"><img src="images/4-sm.jpg" data-smoothzoom="group1" alt="Photo Credit: Billy Onjea"></a>
+<a href="images/5.jpg"><img src="images/5-sm.jpg" data-smoothzoom="group1" alt="Photo Credit: Jan Erik Waider"></a>
+<a href="images/6.jpg"><img src="images/6-sm.jpg" data-smoothzoom="group1" alt="Photo Credit: Artur Pokusin"></a>
+</div>
+<br><br>
+<a href="http://github.com/kthornbloom/smoothzoom" target="_blank" class="button">Usage & Download</a>
 
-<!-- Wrap in a normal anchor tag to use a thumbnail -->
-<p><a href="images/3.jpg"><img src="images/3-THUMB.jpg" rel="zoom" class="float-left"></a>Donec vitae euismod diam. Duis vestibulum vestibulum ante non blandit. In eu libero pellentesque, tincidunt leo et, aliquam arcu. Duis eleifend blandit justo, nec porta mi varius id. Curabitur fringilla malesuada commodo. Suspendisse pulvinar facilisis lorem vitae interdum. Pellentesque sed risus lectus. Aliquam massa elit, dignissim vel viverra a, scelerisque gravida arcu. Mauris et massa urna. Nam adipiscing pretium lorem eget luctus. Curabitur orci leo, rhoncus nec porta nec, aliquet sit amet augue. Proin adipiscing odio id diam pretium, in laoreet urna vestibulum. Suspendisse a posuere mi, eget dictum enim.</p>
-
-<!-- Non-image links in anchor wraps will get redirected normally -->
-<p><a href="http://google.com" target="_blank"><img src="images/4.jpg" class="float-right" rel="zoom"></a>Nam velit tortor, imperdiet sed placerat eget, interdum a velit. Aenean porta quis enim id eleifend. Nullam non turpis et nisi interdum pulvinar. Sed non leo ut metus posuere fringilla. Nullam mi mauris, fermentum nec iaculis vitae, aliquet sit amet erat. Nullam placerat ac orci eu interdum. Fusce sagittis blandit consequat. Praesent euismod nibh quis fermentum luctus. Morbi id luctus magna, aliquet ultrices eros. Vestibulum ullamcorper et massa in tincidunt. Proin purus sapien, fringilla eget aliquet ac, lobortis a nunc. Donec faucibus tellus arcu, vel rutrum tellus laoreet id. In non orci dui. Interdum et malesuada fames ac ante ipsum primis in faucibus. In nec adipiscing leo, eu venenatis sem.</p>
-
-
-</div><br>
 <!-- JS ======================================================= --> 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
 	<script type="text/javascript" src="js/easing.js"></script>
 	<script type="text/javascript" src="js/smoothzoom.min.js"></script>
-	<script type="text/javascript">
-		$('body').append('<img src="images/2.jpg" rel="zoom" class="float-right">')
-	</script>
     <script type="text/javascript">
         $(window).load( function() {
             $('img').smoothZoom({
             	// Options go here
             });
         });
+    </script>
+    <script>
+    	$('img').hover(function() {
+                $('img').not(this).css('opacity','.6');
+            }, function() {
+		    $('img').not(this).css('opacity','1');
+		});
     </script>
 </body>
 </html>

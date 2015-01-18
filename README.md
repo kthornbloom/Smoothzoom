@@ -1,51 +1,49 @@
 #Smoothzoom
 A jQuery plugin to responsively zoom inline page images by <a href="http://kthornbloom.com">Kevin Thornbloom</a>.
-<img src="http://kthornbloom.com/public/smoothzoom.gif">
 
 ##Demo
 <a href="http://kthornbloom.com/smoothzoom" target="_blank">Open demo in new window</a>
 
 ##Features
 
-- Lightweight script
-- Zooms scaled down images, or wrap in an anchor to use thumbnails
-- Zoomed images will always fit the screen in the best way
+- Images zoom from their location on the page when clicked, and zoom back when closed. 
+- Minimal, clean interface
+- Keyboard accessable for previous(left arrow), next(right arrow), and close(esc or down arrow) functions.
+- Responsive
 
 ##Usage
 - Include CSS in the header.
+- Include the load.gif image in the images folder
 
 ```
 <link rel="stylesheet" href="css/smoothzoom.css">
 ```
-- Include and call javascript in the footer.
+- Include and call javascript in the footer. jQuery and jQuery easing are used by this plugin.
 
 ```
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/easing.js"></script>
 	<script type="text/javascript" src="js/smoothzoom.min.js"></script>
 	<script type="text/javascript">
 		 $(window).load( function() {
 		 $('img').smoothZoom({
         	// Options go here
-        		});
+        	});
 		 });
 	</script>
 
 ```
-- Add rel="zoom" to any image you want to zoom
+- Create an image tag with your thumbnail. Add data-smoothzoom="group1" (Use the same group name to group images together). To add an optional caption, use the alt tag. Wrap the whole thing in a link pointing to the full size image. 
 
 ```
-<img src="images/1.jpg" rel="zoom">
-```
-- To use thumbnails, set the smaller image in the img tag. Then wrap it in an anchor that points to the larger.
-
-```
-<a href="images/3.jpg"><img src="images/3-THUMB.jpg" rel="zoom"></a>
+<a href="images/1-large.jpg"><img src="images/1-small.jpg" data-smoothzoom="group1" alt="This is a caption"></a>
 ```
 - Available Options:
 <table class="rwd-table">
 	<tbody><tr>
 		<td><b>Option</b></td>
 		<td><b>Description</b></td>
-		<td><b>Values</b></td>
+		<td><b>Default</b></td>
 	</tr>
 	<tr>
 		<td>zoominSpeed</td>
@@ -58,11 +56,6 @@ A jQuery plugin to responsively zoom inline page images by <a href="http://kthor
 		<td>400</td>
 	</tr>
 	<tr>
-		<td>resizeDelay</td>
-		<td>Check if window resized every X milliseconds</td>
-		<td>400</td>
-	</tr>
-	<tr>
 		<td>zoominEasing</td>
 		<td>jQuery easing method on zoom-in (requires easing plugin)</td>
 		<td>easeOutExpo</td>
@@ -71,6 +64,21 @@ A jQuery plugin to responsively zoom inline page images by <a href="http://kthor
 		<td>zoomoutEasing</td>
 		<td>jQuery easing method on zoom-out (requires easing plugin)</td>
 		<td>easeOutExpo</td>
+	</tr>
+	<tr>
+		<td>navigationButtons</td>
+		<td>Set 'true' or 'false' for previous and next buttons. Buttons will not appear unless there is a group of images.</td>
+		<td>true</td>
+	</tr>
+	<tr>
+		<td>closeButton</td>
+		<td>Set 'true' or 'false' for a close button on the modal window.</td>
+		<td>false</td>
+	</tr>
+	<tr>
+		<td>showCaption</td>
+		<td>Set 'true' or 'false' to show captions.</td>
+		<td>true</td>
 	</tr>
 </tbody></table>
 

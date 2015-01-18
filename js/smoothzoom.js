@@ -1,200 +1,266 @@
 /*
  * Smoothzoom
- * http://kthornbloom.com/smoothzoom
+ * http://github.com/kthornbloom/smoothzoom
  *
- * Copyright 2014, Kevin Thornbloom
- * Free to use and modify under the MIT license.
+ * Copyright 2015, Kevin Thornbloom
+ * Free to use in personal and commercial projects.
+ * Do not resell as a plugin
  * http://www.opensource.org/licenses/mit-license.php
  */
 
 (function($) {
-    $.fn.extend({
-        smoothZoom: function(options) {
+	$.fn.extend({
+		smoothZoom: function(options) {
 
-            var defaults = {
-                zoominSpeed: 800,
-                zoomoutSpeed: 400,
-                resizeDelay: 400,
-                zoominEasing: 'easeOutExpo',
-                zoomoutEasing: 'easeOutExpo'
-            }
+			var defaults = {
+				zoominSpeed: 800,
+				zoomoutSpeed: 400,
+				zoominEasing: 'easeOutExpo',
+				zoomoutEasing: 'easeOutExpo',
+				navigationButtons: 'true',
+				closeButton: 'false',
+				showCaption:'true'
+			}
 
-            var options = $.extend(defaults, options);
-
-
-
-            // CLICKING AN IMAGE
-
-            $('img[rel="zoom"]').click(function(event) {
-
-                var link = $(this).attr('src'),
-                    largeImg = $(this).parent().attr('href'),
-                    target = $(this).parent().attr('target'),
-                    offset = $(this).offset(),
-                    width = $(this).width(),
-                    height = $(this).height(),
-                    amountScrolled = $(window).scrollTop(),
-                    viewportWidth = $(window).width(),
-                    viewportHeight = $(window).height();
-                // IF THERE IS NO ANCHOR WRAP
-                if ((!largeImg) || (largeImg == "#")) {
-
-                    $('body').append("<div id='lightwrap'><img src=" + link + "></div><div id='lightbg'></div><img id='off-screen' src=" + link + ">");
-                    $("#off-screen").load(function() {
-                        $('#lightwrap img').css({
-                            width: width,
-                            height: height,
-                            top: (offset.top - amountScrolled),
-                            left: offset.left
-                        });
-                        fitWidth();
-                        $('#lightbg').fadeIn();
-                    });
-                    $(this).attr('id', 'lightzoomed');
-
-                    // IF THERE IS AN ANCHOR, AND IT'S AN IMAGE
-                } else if (largeImg.match("[jpg|png|gif|JPG|PNG|GIF](\\?.*?)?$")) {
-                    $('body').append("<div id='lightwrap'><img src=" + largeImg + "></div><div id='lightbg'></div><img id='off-screen' src=" + largeImg + ">");
-                    $("#off-screen").load(function() {
-                        $('#lightwrap img').css({
-                            width: width,
-                            height: height,
-                            top: (offset.top - amountScrolled),
-                            left: offset.left
-                        });
-                        fitWidth();
-                        $('#lightbg').fadeIn();
-                    });
-                    $(this).attr('id', 'lightzoomed');
-
-                    // IF THERE IS AN ANCHOR, BUT NOT AN IMAGE
-                } else {
-                    // SHOULD IT OPEN IN A NEW WINDOW?
-                    if (target == '_blank') {
-                        window.open(largeImg, '_blank');
-                    } else {
-                        window.location = largeImg;
-                    }
-                }
-                event.preventDefault();
-            });
-
-            // CLOSE MODAL
-
-            $(document.body).on("click", "#lightwrap, #lightbg", function(event) {
-                var offset = $("#lightzoomed").offset(),
-                    originalWidth = $("#lightzoomed").width(),
-                    originalHeight = $("#lightzoomed").height(),
-                    amountScrolled = $(window).scrollTop();
-                $('#lightbg').fadeOut(500);
-                $('#lightwrap img').animate({
-                    height: originalHeight,
-                    width: originalWidth,
-                    top: (offset.top - amountScrolled),
-                    left: offset.left,
-                    marginTop: '0',
-                    marginLeft: '0'
-                }, options.zoomoutSpeed, options.zoomoutEasing, function() {
-                    $('#lightwrap, #lightbg, #off-screen').remove();
-                    $('#lightzoomed').removeAttr('id');
-
-                });
-            });
-
-            // DELAY FUNCTION FOR WINDOW RESIZE
-            var delay = (function() {
-                var timer = 0;
-                return function(callback, ms) {
-                    clearTimeout(timer);
-                    timer = setTimeout(callback, ms);
-                };
-            })();
-
-            // CHECK WINDOW SIZE EVERY _ MS
-            $(window).resize(function() {
-                delay(function() {
-                    fitWidth();
-                }, options.resizeDelay);
-            });
+			var options = $.extend(defaults, options);
 
 
-            // FIT IMAGE BASED ON HEIGHT
-            function fitHeight() {
 
-                var viewportHeight = $(window).height(),
-                    viewportWidth = $(window).width(),
-                    naturalWidth = $('#off-screen').width(),
-                    naturalHeight = $('#off-screen').height(),
-                    newHeight = (viewportHeight * 0.95),
-                    ratio = (newHeight / naturalHeight),
-                    newWidth = (naturalWidth * ratio);
-                $('#lightwrap img').show();
-                if (newHeight > naturalHeight) {
-                    $('#lightwrap img').animate({
-                        height: naturalHeight,
-                        width: naturalWidth,
-                        left: '50%',
-                        top: '50%',
-                        marginTop: -(naturalHeight / 2),
-                        marginLeft: -(naturalWidth / 2)
-                    }, options.zoominSpeed, options.zoominEasing);
-                } else {
-                    if (newWidth > viewportWidth) {
-                        fitWidth();
-                    } else {
-                        $('#lightwrap img').animate({
-                            height: newHeight,
-                            width: newWidth,
-                            left: '50%',
-                            top: '2.5%',
-                            marginTop: '0',
-                            marginLeft: -(newWidth / 2)
-                        }, options.zoominSpeed, options.zoominEasing);
-                    }
-                }
-            }
+			// CLICKING AN IMAGE
 
-            // FIT IMAGE BASED ON WIDTH
-            function fitWidth() {
+			$('img[data-smoothzoom]').click(function(event) {
 
-                var naturalWidth = $('#off-screen').width(),
-                    naturalHeight = $('#off-screen').height(),
-                    viewportWidth = $(window).width(),
-                    viewportHeight = $(window).height(),
-                    newWidth = (viewportWidth * 0.95),
-                    ratio = (newWidth / naturalWidth),
-                    newHeight = (naturalHeight * ratio);
-                $('#lightwrap img').show();
-                if (newHeight > naturalHeight) {
-                    if (naturalHeight > viewportHeight) {
-                        fitHeight();
-                    } else {
-                        $('#lightwrap img').animate({
-                            height: naturalHeight,
-                            width: naturalWidth,
-                            top: '50%',
-                            left: '50%',
-                            marginTop: -(naturalHeight / 2),
-                            marginLeft: -(naturalWidth / 2)
-                        }, options.zoominSpeed, options.zoominEasing);
-                    }
-                } else {
-                    if (newHeight > viewportHeight) {
-                        fitHeight();
-                    } else {
-                        $('#lightwrap img').animate({
-                            height: newHeight,
-                            width: newWidth,
-                            top: '50%',
-                            left: '2.5%',
-                            marginTop: -(newHeight / 2),
-                            marginLeft: '0'
-                        }, options.zoominSpeed, options.zoominEasing);
-                    }
-                }
-            }
+				var link = $(this).attr('src'),
+					largeImg = $(this).parent().attr('href'),
+					target = $(this).parent().attr('target'),
+					offset = $(this).offset(),
+					width = $(this).width(),
+					height = $(this).height(),
+					amountScrolled = $(window).scrollTop(),
+					viewportWidth = $(window).width(),
+					viewportHeight = $(window).height();
 
+					$(this).attr('id', 'lightzoomed');
+					$('body').append("<div class='sz-overlay'></div><a href='#' class='sz-zoomed' style='background:url(" + largeImg + ")'>&nbsp;</a><div class='sz-ui'></div>");
 
-        }
-    });
+					// Add Nav buttons if needed, and if option is set
+					var groupName = $('#lightzoomed').data('smoothzoom'),
+						groupTotal = $('img[data-smoothzoom=' + groupName + ']').length
+					if (options.navigationButtons == 'true' && groupTotal > 1) {$('body').append("<a href='#' class='sz-left'>&#9664;</a><a href='#' class='sz-right'>&#9654;</a>");}
+
+					// Add Close button if option is set
+					if (options.closeButton == 'true') {$('body').append("<a href='#' class='sz-close'>&#10006;</a>")}
+
+					// Add Caption div if option is set
+					if (options.showCaption == 'true') {$('body').append("<div class='sz-caption'></div>");caption();}
+
+					$('.sz-overlay, .sz-left, .sz-right').fadeIn();
+					$('.sz-zoomed').css({
+						width: width,
+						height: height,
+						top: (offset.top - amountScrolled),
+						left: offset.left
+					});
+					$('.sz-zoomed').animate({
+						width: '90%',
+						height: '90%',
+						top: '5%',
+						left: '5%'
+					}, options.zoominSpeed, options.zoominEasing);
+
+				event.preventDefault();
+			});
+
+			// Close Everything On Click
+			$(document.body).on("click", ".sz-zoomed, .sz-close", function(event) {
+				closeAll();
+			});
+
+			// Next Button
+			$(document.body).on("click", ".sz-right", function(event) {
+				advanceGroup();
+			});
+
+			// Prev Button
+			$(document.body).on("click", ".sz-left", function(event) {
+				devanceGroup();
+			});
+
+			// Update Caption
+			function caption(){
+				if (options.showCaption == 'true') {
+					var currentCap = $('#lightzoomed').attr('alt');
+					if(currentCap) {
+						$(".sz-caption").html("<span>" + currentCap+ "</span>").fadeIn();
+					} else {
+						$(".sz-caption").empty();
+					}
+				}
+			}
+
+			// Close Function
+			function closeAll() {
+					var offset = $("#lightzoomed").offset(),
+					originalWidth = $("#lightzoomed").width(),
+					originalHeight = $("#lightzoomed").height(),
+					amountScrolled = $(window).scrollTop();
+				$('.sz-overlay, .sz-left, .sz-right').fadeOut();
+				$('.sz-zoomed').animate({
+					width: originalWidth,
+					height: originalHeight,
+					top: (offset.top - amountScrolled),
+					left: offset.left
+				}, options.zoomoutSpeed, options.zoomoutEasing, function() {
+					$('.sz-zoomed, .sz-overlay, .sz-right, .sz-left, .sz-caption, .sz-close').remove();
+					$('#lightzoomed').removeAttr('id');
+				});
+			}
+
+			// Move forward in group
+			function advanceGroup() {
+				var groupName = $('#lightzoomed').data('smoothzoom'),
+					currentIndex = $('#lightzoomed').index("[data-smoothzoom=" + groupName + "]"),
+					groupTotal = $('img[data-smoothzoom=' + groupName + ']').length,
+					nextIndex = currentIndex + 1;
+				// if at end
+				if (nextIndex >= groupTotal) {
+					// do a little bounce
+					$('.sz-zoomed').animate({
+						width: '80%',
+						height: '80%',
+						top: '10%',
+						left: '10%'
+					},200, function(){
+						$('.sz-zoomed').animate({
+							width: '90%',
+							height: '90%',
+							top: '5%',
+							left: '5%'
+						},200);
+					});
+				} else {
+					// fade out and remove current image
+					$("#lightzoomed").removeAttr('id');
+					$('.sz-caption').fadeOut();
+					$('.sz-zoomed').animate({
+						width: '80%',
+						height: '80%',
+						top: '10%',
+						left: '10%',
+						opacity:'0'
+					}, function(){
+						// find next image
+						$("[data-smoothzoom=" + groupName + "]:eq(" + nextIndex + ")").attr('id', 'lightzoomed');
+						var newImg = $("#lightzoomed").parent().attr('href');
+						// set new background and initial CSS state
+						$('.sz-zoomed').css({
+							background: 'url(' + newImg + ')',
+							width: '80%',
+							height: '80%',
+							top: '10%',
+							left: '10%',
+							opacity:'0'
+						});
+						// animate back in
+						$('.sz-zoomed').animate({
+							width: '90%',
+							height: '90%',
+							top: '5%',
+							left: '5%',
+							opacity:'1'
+						});
+						caption();
+					});
+				}
+			}
+
+			// Go Back in Group
+			function devanceGroup() {
+				var groupName = $('#lightzoomed').data('smoothzoom'),
+					currentIndex = $('#lightzoomed').index("[data-smoothzoom=" + groupName + "]"),
+					groupTotal = $('img[data-smoothzoom=' + groupName + ']').length,
+					nextIndex = currentIndex - 1;
+				// if at end
+				if (nextIndex <= -1) {
+					// do a little bounce
+					$('.sz-zoomed').animate({
+						width: '80%',
+						height: '80%',
+						top: '10%',
+						left: '10%'
+					},200, function(){
+						$('.sz-zoomed').animate({
+							width: '90%',
+							height: '90%',
+							top: '5%',
+							left: '5%'
+						},200);
+					});
+				} else {
+					// fade out and remove current image
+					$("#lightzoomed").removeAttr('id');
+					$('.sz-caption').fadeOut();
+					$('.sz-zoomed').animate({
+						width: '80%',
+						height: '80%',
+						top: '10%',
+						left: '10%',
+						opacity:'0'
+					}, function(){
+						// find next image
+						$("[data-smoothzoom=" + groupName + "]:eq(" + nextIndex + ")").attr('id', 'lightzoomed');
+						var newImg = $("#lightzoomed").parent().attr('href');
+						// set new background and initial CSS state
+						$('.sz-zoomed').css({
+							background: 'url(' + newImg + ')',
+							width: '80%',
+							height: '80%',
+							top: '10%',
+							left: '10%',
+							opacity:'0'
+						});
+						// animate back in
+						$('.sz-zoomed').animate({
+							width: '90%',
+							height: '90%',
+							top: '5%',
+							left: '5%',
+							opacity:'1'
+						});						
+						caption();
+					});
+				}
+			}
+
+			// Keyboard shortcuts
+			$(document).keydown(function(e) {
+				switch (e.which) {
+					case 37: // Left arrow
+						if ($('.sz-overlay').length) {
+							devanceGroup();
+						}
+						break;
+
+					case 39: // Right arrow
+						if ($('.sz-overlay').length) {
+							advanceGroup();
+						}
+						break;
+
+					case 27: // Escape key
+						closeAll();
+						break;
+
+					case 40: // Down arrow
+						closeAll();
+						break;
+
+					default:
+						return; // exit this handler for other keys
+				}
+				e.preventDefault();
+			});
+
+		}
+	});
 })(jQuery);
