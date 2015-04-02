@@ -74,16 +74,19 @@
 			// Close Everything On Click
 			$(document.body).on("click", ".sz-zoomed, .sz-close", function(event) {
 				closeAll();
+				event.preventDefault();
 			});
 
 			// Next Button
 			$(document.body).on("click", ".sz-right", function(event) {
 				advanceGroup();
+				event.preventDefault();
 			});
 
 			// Prev Button
 			$(document.body).on("click", ".sz-left", function(event) {
 				devanceGroup();
+				event.preventDefault();
 			});
 
 			// Update Caption
