@@ -165,13 +165,17 @@
 							opacity:'0'
 						});
 						// animate back in
-						$('.sz-zoomed').animate({
-							width: '90%',
-							height: '90%',
-							top: '5%',
-							left: '5%',
-							opacity:'1'
+						$('<img/>').attr('src', newImg).load(function() {
+							$(this).remove();
+							$('.sz-zoomed').animate({
+								width: '90%',
+								height: '90%',
+								top: '5%',
+								left: '5%',
+								opacity:'1'
+							});
 						});
+						
 						caption();
 					});
 				}
@@ -223,13 +227,16 @@
 							opacity:'0'
 						});
 						// animate back in
-						$('.sz-zoomed').animate({
-							width: '90%',
-							height: '90%',
-							top: '5%',
-							left: '5%',
-							opacity:'1'
-						});						
+						$('<img/>').attr('src', newImg).load(function() {
+							$(this).remove();
+							$('.sz-zoomed').animate({
+								width: '90%',
+								height: '90%',
+								top: '5%',
+								left: '5%',
+								opacity:'1'
+							});
+						});
 						caption();
 					});
 				}
