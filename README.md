@@ -1,5 +1,5 @@
 #Smoothzoom
-A jQuery plugin to responsively zoom inline page images by <a href="http://kthornbloom.com">Kevin Thornbloom</a>.
+A jQuery plugin to zoom and scroll through images by <a href="http://kthornbloom.com">Kevin Thornbloom</a>.
 
 ##Demo
 <a href="http://kthornbloom.com/smoothzoom" target="_blank">Open demo in new window</a>
@@ -10,6 +10,8 @@ A jQuery plugin to responsively zoom inline page images by <a href="http://kthor
 - Minimal, clean interface
 - Keyboard accessable for previous(left arrow), next(right arrow), and close(esc or down arrow) functions.
 - Responsive
+- 'Lightbox' type viewer for groups of images
+<i>Note: not for use with text links</i>
 
 ##Usage
 - Include CSS in the header.
@@ -33,10 +35,10 @@ A jQuery plugin to responsively zoom inline page images by <a href="http://kthor
 	</script>
 
 ```
-- Create an image tag with your thumbnail. Add data-smoothzoom="group1" (Use the same group name to group images together). To add an optional caption, use the alt tag. Wrap the whole thing in a link pointing to the full size image. 
-
+- Create an image tag with your thumbnail.  To add an optional caption, use the alt tag. Wrap the whole thing in a link pointing to the full size image. Add data-smoothzoom="group1" to the link. You may change group1 to anything you'd like.
+Use different names for different groupings of images.
 ```
-<a href="images/1-large.jpg"><img src="images/1-small.jpg" data-smoothzoom="group1" alt="This is a caption"></a>
+<a href="images/1-large.jpg" data-smoothzoom="group1"><img src="images/1-small.jpg" alt="This is a caption"></a>
 ```
 - Available Options:
 <table class="rwd-table">
@@ -81,6 +83,12 @@ A jQuery plugin to responsively zoom inline page images by <a href="http://kthor
 		<td>true</td>
 	</tr>
 </tbody></table>
+
+##Browser Support
+Chrome ✓
+Firefox ✓
+Safari ✓
+IE - should work, but untested. Let me know how it goes!
 
 ##Licensing
 Free to use and modify personally or commercially. Not for resale. 

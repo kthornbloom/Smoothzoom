@@ -1,5 +1,5 @@
 /*
- * Smoothzoom
+ * Smoothzoom V 1.1.0
  * http://github.com/kthornbloom/smoothzoom
  *
  * Copyright 2015, Kevin Thornbloom
@@ -28,24 +28,24 @@
 
 			// CLICKING AN IMAGE
 
-			$('img[data-smoothzoom]').click(function(event) {
+			$('a[data-smoothzoom]').click(function(event) {
 
-				var link = $(this).attr('src'),
-					largeImg = $(this).parent().attr('href'),
-					target = $(this).parent().attr('target'),
-					offset = $(this).offset(),
-					width = $(this).width(),
-					height = $(this).height(),
+				var link = $('img', this).attr('src'),
+					largeImg = $(this).attr('href'),
+					target = $(this).attr('target'),
+					offset = $('img', this).offset(),
+					width = $('img', this).width(),
+					height = $('img', this).height(),
 					amountScrolled = $(window).scrollTop(),
 					viewportWidth = $(window).width(),
 					viewportHeight = $(window).height();
 
-					$(this).attr('id', 'lightzoomed');
+					$('img', this).attr('id', 'lightzoomed');
 					$('body').append("<div class='sz-overlay'></div><a href='#' class='sz-zoomed' style='background:url(" + largeImg + ")'>&nbsp;</a><div class='sz-ui'></div>");
 
 					// Add Nav buttons if needed, and if option is set
-					var groupName = $('#lightzoomed').data('smoothzoom'),
-						groupTotal = $('img[data-smoothzoom=' + groupName + ']').length
+					var groupName = $('#lightzoomed').parents('a').data('smoothzoom'),
+						groupTotal = $('a[data-smoothzoom=' + groupName + ']').length
 					if (options.navigationButtons == 'true' && groupTotal > 1) {$('body').append("<a href='#' class='sz-left'>&#9664;</a><a href='#' class='sz-right'>&#9654;</a>");}
 
 					// Add Close button if option is set
@@ -121,9 +121,9 @@
 
 			// Move forward in group
 			function advanceGroup() {
-				var groupName = $('#lightzoomed').data('smoothzoom'),
-					currentIndex = $('#lightzoomed').index("[data-smoothzoom=" + groupName + "]"),
-					groupTotal = $('img[data-smoothzoom=' + groupName + ']').length,
+				var groupName = $('#lightzoomed').parents('a').data('smoothzoom'),
+					currentIndex = $('#lightzoomed').parents('a').index("[data-smoothzoom=" + groupName + "]"),
+					groupTotal = $('a[data-smoothzoom=' + groupName + ']').length,
 					nextIndex = currentIndex + 1;
 				// if at end
 				if (nextIndex >= groupTotal) {
@@ -153,26 +153,26 @@
 						opacity:'0'
 					}, function(){
 						// find next image
-						$("[data-smoothzoom=" + groupName + "]:eq(" + nextIndex + ")").attr('id', 'lightzoomed');
+						$("[data-smoothzoom=" + groupName + "]:eq(" + nextIndex + ")").find('img').attr('id', 'lightzoomed');
 						var newImg = $("#lightzoomed").parent().attr('href');
 						// set new background and initial CSS state
 						$('.sz-zoomed').css({
+							opacity:'0',
 							background: 'url(' + newImg + ')',
 							width: '80%',
 							height: '80%',
 							top: '10%',
-							left: '10%',
-							opacity:'0'
+							left: '10%'
 						});
 						// animate back in
 						$('<img/>').attr('src', newImg).load(function() {
 							$(this).remove();
 							$('.sz-zoomed').animate({
+								opacity:'1',
 								width: '90%',
 								height: '90%',
 								top: '5%',
-								left: '5%',
-								opacity:'1'
+								left: '5%'
 							});
 						});
 						
@@ -183,9 +183,9 @@
 
 			// Go Back in Group
 			function devanceGroup() {
-				var groupName = $('#lightzoomed').data('smoothzoom'),
-					currentIndex = $('#lightzoomed').index("[data-smoothzoom=" + groupName + "]"),
-					groupTotal = $('img[data-smoothzoom=' + groupName + ']').length,
+				var groupName = $('#lightzoomed').parents('a').data('smoothzoom'),
+					currentIndex = $('#lightzoomed').parents('a').index("[data-smoothzoom=" + groupName + "]"),
+					groupTotal = $('a[data-smoothzoom=' + groupName + ']').length,
 					nextIndex = currentIndex - 1;
 				// if at end
 				if (nextIndex <= -1) {
@@ -208,23 +208,23 @@
 					$("#lightzoomed").removeAttr('id');
 					$('.sz-caption').fadeOut();
 					$('.sz-zoomed').animate({
+						opacity:'0',
 						width: '80%',
 						height: '80%',
 						top: '10%',
-						left: '10%',
-						opacity:'0'
+						left: '10%'
 					}, function(){
 						// find next image
-						$("[data-smoothzoom=" + groupName + "]:eq(" + nextIndex + ")").attr('id', 'lightzoomed');
+						$("[data-smoothzoom=" + groupName + "]:eq(" + nextIndex + ")").find('img').attr('id', 'lightzoomed');
 						var newImg = $("#lightzoomed").parent().attr('href');
 						// set new background and initial CSS state
 						$('.sz-zoomed').css({
 							background: 'url(' + newImg + ')',
+							opacity:'0',
 							width: '80%',
 							height: '80%',
 							top: '10%',
-							left: '10%',
-							opacity:'0'
+							left: '10%'
 						});
 						// animate back in
 						$('<img/>').attr('src', newImg).load(function() {
