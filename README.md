@@ -1,5 +1,5 @@
 #Smoothzoom
-A jQuery plugin to zoom and scroll through images by <a href="http://kthornbloom.com">Kevin Thornbloom</a>.
+A jQuery plugin to zoom and scroll through images
 
 ##Demo
 <a href="http://kthornbloom.com/smoothzoom" target="_blank">Open demo in new window</a>
